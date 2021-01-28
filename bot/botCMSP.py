@@ -23,10 +23,7 @@ def botCMSP():
         pyautogui.typewrite(canal)
         time.sleep(6)
 
-        pyautogui.press('tab')
-        pyautogui.press('tab') 
-        pyautogui.press('tab')
-        pyautogui.press('tab')
+        pyautogui.press('tab', presses=4)
         pyautogui.press('up')
         pyautogui.press('enter')
 
