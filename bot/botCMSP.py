@@ -3,21 +3,25 @@ import os
 import sched
 import time
 from datetime import date
+import PySimpleGUI as sg
 
-print("#########################################")
-print("#########################################")
-print("#               CMSP BOT                #")
-print("#########################################")
-print("#########################################")
+sg.theme('Black')
 
-print("_________________________________________")
-dia = input("Digite o dia: ")
-print("_________________________________________")
+layout = [
+    [sg.Text("Canal:", size=(8, 0)), sg.Input(size=(16, 0), key="canal")],
+    [sg.Text("Dia:", size=(8, 0)), sg.Input(size=(16, 0), key="dia")],
+    [sg.Text("Horário:", size=(8, 0)), sg.Input(size=(16, 0,), key="horario")],
+    [sg.Button("OK", size=(10, 0))]
+]
 
-print("Formato do horário: 'HH:MM'")
+window = sg.Window("Bot CMSP", icon='references/iconcmsp.ico').layout(layout)
 
-horario = input("Digite o horário: ")
-print("_________________________________________")
+event, values = window.read()
+
+canal = values['canal']
+dia = values['dia']
+horario = values['horario']
+
 
 def botCMSP():
 
@@ -76,17 +80,13 @@ def botCMSP():
                     pyautogui.keyDown('win')
                     pyautogui.press('1')
                     pyautogui.keyUp('win')
+                
                     
-                    # sairButton = pyautogui.locateCenterOnScreen('references/sairButton.png')
-                    # pyautogui.click(sairButton)
-                    # time.sleep(1)
-                    
-                    print("Programação concluída com sucesso! ft. Vitão, Agnaldão and Betão.")
-                    pyautogui.alert(text="Programação concluída com sucesso! ft. Vitão, Agnaldão and Betão.")
-            
+                    pyautogui.alert(text="Programação concluída com sucesso!")
 
 scheduler = sched.scheduler(time.time, time.sleep)
 t = time.strptime("2021-02-"+dia+" "+horario+":00", '%Y-%m-%d %H:%M:%S')
 t = time.mktime(t)
 scheduler_e = scheduler.enterabs(t, 1, botCMSP, ())
 scheduler.run()
+            
