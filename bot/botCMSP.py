@@ -5,11 +5,14 @@ import time
 from datetime import date
 import PySimpleGUI as sg
 
-sg.theme('DarkGrey8')
+sg.theme('DarkGrey12')
 
 canais = [
-    "cmsp-1ef-sp-p", "cmsp-2ef-sp-p", "cmsp-3ef-sp-p", "cmsp-4ef-sp-p", "cmsp-5ef-sp-p", "cmsp-6ef-p", "cmsp-7ef-p", 
-    "cmsp-8ef-p", "cmsp-9ef-p", "cmsp-1em-p", "cmsp-2em-p", "cmsp-3em-p", "treinamentosp01-p"
+    "cmsp-1ef-sp-p", "cmsp-2ef-sp-p", "cmsp-3ef-sp-p", 
+    "cmsp-4ef-sp-p", "cmsp-5ef-sp-p", "cmsp-6ef-p", 
+    "cmsp-7ef-p", "cmsp-8ef-p", "cmsp-9ef-p", 
+    "cmsp-1em-p", "cmsp-2em-p", "cmsp-3em-p", 
+    "treinamentosp01-p", "treinamentosp02-p", "treinamentosp03-p"
 ]
 
 layout = [
@@ -24,7 +27,16 @@ window = sg.Window("Bot CMSP", icon='references/iconcmsp.ico', element_justifica
 
 event, values = window.read()
 
-canal = values['canal']
+canal = str(values['canal'])
+char_to_replace = {
+    "[": '',
+    "]": '',
+    "'": ''
+}
+
+for key, value in char_to_replace.items():
+    canal = canal.replace(key, value)
+
 dia = values['dia']
 horario = values['horario']
 
