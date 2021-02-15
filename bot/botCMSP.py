@@ -1,9 +1,9 @@
 import pyautogui
 import os
+import PySimpleGUI as sg
 import sched
 import time
 from datetime import date
-import PySimpleGUI as sg
 
 sg.theme('DarkGrey12')
 
@@ -12,7 +12,7 @@ canais = [
     "cmsp-4ef-sp-p", "cmsp-5ef-sp-p", "cmsp-6ef-p", 
     "cmsp-7ef-p", "cmsp-8ef-p", "cmsp-9ef-p", 
     "cmsp-1em-p", "cmsp-2em-p", "cmsp-3em-p", 
-    "treinamentosp01-p", "treinamentosp02-p", "treinamentosp03-p"
+    "treinamentosp01-p", "treinamentosp02-p"
 ]
 
 layout = [
@@ -39,6 +39,9 @@ for key, value in char_to_replace.items():
 
 dia = values['dia']
 horario = values['horario']
+
+if event == 'OK':
+    window.Hide()
 
 
 def botCMSP():
@@ -98,8 +101,10 @@ def botCMSP():
                     
                     pyautogui.alert(text="Programação concluída com sucesso!")
 
+
 scheduler = sched.scheduler(time.time, time.sleep)
-t = time.strptime("2021-02-"+dia+" "+horario+":00", '%Y-%m-%d %H:%M:%S')
+# t = time.strptime("2021-02-"+dia+" "+horario+":00", '%Y-%m-%d %H:%M:%S')
+t = time.strptime("21/02/"+dia+" "+horario, "%y/%m/%d %H:%M")
 t = time.mktime(t)
 scheduler_e = scheduler.enterabs(t, 1, botCMSP, ())
 scheduler.run()
